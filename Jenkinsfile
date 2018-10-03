@@ -12,7 +12,19 @@ pipeline {
               sh 'TMPENV1="blabla" TMPENV2="blabla" exit 255'
           }
           catchError {
-              sh 'TMPENV1="blabla" TMPENV2="blabla"'
+              sh 'TMPENV1="blabla" TMPENV2="blabla" sleep 2'
+          }
+          catchError {
+              sh 'TMPENV1="blabla" TMPENV2="blabla" sleep 2'
+          }
+          catchError {
+              sh 'TMPENV1="blabla" TMPENV2="blabla" exit 255'
+          }
+          catchError {
+              sh 'TMPENV1="blabla" TMPENV2="blabla" sleep 2'
+          }
+          catchError {
+              sh 'TMPENV1="blabla" TMPENV2="blabla" sleep 2'
           }
       }
     }
