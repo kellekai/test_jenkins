@@ -9,8 +9,8 @@ pipeline {
     stage('2-fail_stage') {
       steps {
           catchError {
+              sh 'TMPENV1="blabla" TMPENV2="blabla" exit 255'
               sh 'TMPENV1="blabla" TMPENV2="blabla"'
-              sh 'exit 255'
           }
       }
     }
