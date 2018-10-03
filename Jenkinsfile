@@ -13,7 +13,7 @@ pipeline {
                 sh 'echo "fail_stage"'
                 sh 'exit 255'
               } catch (err) {
-                  echo err
+                  echo "error"
               }
           }
       }
