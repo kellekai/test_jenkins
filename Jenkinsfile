@@ -8,8 +8,15 @@ pipeline {
     }
     stage('2-fail_stage') {
       steps {
-        sh 'echo "fail_stage"'
-        sh 'exit 255'
+          script {
+              try {
+                sh 'echo "fail_stage"'
+                sh 'exit 255'
+              } catch (err) {
+                  echo err
+              }
+              echo currentBuild.result
+          }
       }
     }
     stage('3-success_stage') {
