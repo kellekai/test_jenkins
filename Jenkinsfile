@@ -10,6 +10,8 @@ pipeline {
       steps {
           catchError {
               sh 'TMPENV1="blabla" TMPENV2="blabla" exit 255'
+          }
+          catchError {
               sh 'TMPENV1="blabla" TMPENV2="blabla"'
           }
       }
