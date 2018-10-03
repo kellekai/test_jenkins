@@ -15,7 +15,6 @@ pipeline {
               } catch (err) {
                   echo err
               }
-              echo currentBuild.result
           }
       }
     }
