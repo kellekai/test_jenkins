@@ -9,8 +9,8 @@ pipeline {
     stage('2-fail_stage') {
       steps {
           catchError {
-              STEP ONE : { sh 'echo "fail_stage"' }
-              STEP TWO : { sh 'exit 255' }
+              sh 'echo "fail_stage"'
+              sh 'exit 255'
           }
       }
     }
