@@ -17,23 +17,23 @@ passed = []
 pipeline {
     agent none
     stages{
-    stage( 'stage' ) { 
-        steps { 
-            script {
-                sleep (5)
-                passed.add('name1') 
-            }
-        }  
-    }  
-    stage( 'ckpt' )  { steps { checkpoint 'performed parts' } }
-    stage( 'stage' ) { 
-        steps {
-        script {
-            if( passed.contains('name1') )
-                echo 'it should work' 
+        stage( 'stage1' ) { 
+            steps { 
+                script {
+                    sleep (5)
+                    passed.add('name1') 
+                }
             }  
+        }  
+        stage( 'ckpt' )  { steps { checkpoint 'performed parts' } }
+        stage( 'stage2' ) { 
+            steps {
+            script {
+                if( passed.contains('name1') )
+                    echo 'it should work' 
+                }  
+            }
         }
-    }
     }
 }
 
