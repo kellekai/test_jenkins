@@ -16,7 +16,7 @@ def go() {
   part('one') {echo 'first part passes'}
   part('two') {
     // Example of a flaky build step:
-    if (env.BUILD_NUMBER == '2') {
+    if (env.BUILD_NUMBER == '23') {
       echo 'second part passes'
     } else {
       error 'second part fails'
