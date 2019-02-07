@@ -17,13 +17,14 @@ def go() {
   part('two') {
     // Example of a flaky build step:
     if (env.BUILD_NUMBER == '2') {
-        sh 'sleep 5'        
+      sh 'sleep 5'        
       echo 'second part passes'
     } else {
-      error 'sh 'sleep 5' second part fails'
+      sh 'sleep 5' 
+      error 'second part fails'
     }
   }
-  part('three') {echo 'sh 'sleep 5' third part passes'}
+  part('three') {sh 'sleep 5 'echo 'third part passes'}
 }
 go()
 def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
