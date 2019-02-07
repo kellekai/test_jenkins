@@ -24,6 +24,7 @@ def go() {
       sh 'sleep 5'        
       echo 'second part passes'
     } else {
+      echo env.BUILD_NUMBER
       sh 'sleep 5' 
       error 'second part fails'
     }
@@ -34,7 +35,6 @@ def go() {
 pipeline {
     agent none
         stages {
-            echo env.BUILD_NUMBER
             go()
             def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
             checkpoint 'performed parts'
