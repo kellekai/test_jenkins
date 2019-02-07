@@ -14,8 +14,19 @@ def part(name, closure) {
   }
 }
 def go() {
-  part('one') {echo 'first part passes'}
-  part('two') {echo 'first part passes'}
+  part('one') {
+     sh '''
+     sleep 10
+     echo 'first part passes'
+     '''
+      }
+  part('two') {
+     sh '''
+     sleep 10
+      echo 'first part passes'
+     '''
+     error 'second foo fails'
+      }
   //part('two') {
   //  // Example of a flaky build step:
   //  if (env.BUILD_NUMBER == '25') {
@@ -24,8 +35,18 @@ def go() {
   //    error 'second part fails'
   //  }
   //}
-  part('three') {echo 'third part passes'}
-  part('four') {echo 'third part passes'}
+  part('three') {
+     sh '''
+     sleep 10
+      echo 'third part passes'
+     '''
+      }
+  part('four') {
+     sh '''
+     sleep 10
+      echo 'third part passes'
+     '''
+      }
 }
 go()
 //def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
