@@ -1,54 +1,34 @@
+//def part(name, closure) {
+//  if (passed.contains(name)) {
+//    return
+//  }
+//  stage name
+//  try {
+//    closure.call()
+//    passed.add(name)
+//    currentBuild.result = 'SUCCESS'
+//  } catch (e) {
+//    echo "===> part ${name} failed with ${e} <==="
+//    //currentBuild.result = 'FAILURE'
+//  }
+//}
+
 passed = []
-def part(name, closure) {
-  if (passed.contains(name)) {
-    return
-  }
-  stage name
-  try {
-    closure.call()
-    passed.add(name)
-    currentBuild.result = 'SUCCESS'
-  } catch (e) {
-    echo "===> part ${name} failed with ${e} <==="
-    //currentBuild.result = 'FAILURE'
-  }
+pipeline {
+    agent none
+    stages{
+    stage( 'stage' ) { steps { sleep (5); passed.add('name1') }  }  
+    stage( 'stage' ) { steps { sleep (5); passed.add('name2') }  } 
+    stage( 'stage' ) { steps { sleep (5); passed.add('name3') }  } 
+    stage( 'stage' ) { steps { sleep (5); passed.add('name4') }  } 
+    stage( 'stage' ) { steps { sleep (5); passed.add('name5') }  } 
+    stage( 'ckpt' )  { steps { checkpoint 'performed parts' } }
+    stage( 'stage' ) { 
+        steps { 
+        if( passed.contains('name1') )
+            echo 'it should work' 
+            }  
+        }  
+    }
 }
-
-
-def go() {
-  part('one')   { sleep (5) }
-  part('two')   { sleep (5) }
-  part('three') { sleep (5) }
-  part('four')  { sleep (5) }
-  part('five')  { sleep (5) }
-  //part('two') {
-  //   sh '''
-  //   sleep 5
-  //    echo 'first part passes'
-  //   '''
-  //    }
-  ////part('two') {
-  ////  // Example of a flaky build step:
-  ////  if (env.BUILD_NUMBER == '25') {
-  ////    echo 'second part passes'
-  ////  } else {
-  ////    error 'second part fails'
-  ////  }
-  ////}
-  //part('three') {
-  //   sh '''
-  //   sleep 5
-  //    echo 'third part passes'
-  //   '''
-  //    }
-  //part('four') {
-  //   sh '''
-  //   sleep 5
-  //    echo 'third part passes'
-  //   '''
-  //    }
-}
-go()
-//def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
-checkpoint 'performed parts'
 
