@@ -50,5 +50,5 @@ def go() {
 }
 go()
 //def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
-//checkpoint 'performed parts'
+checkpoint 'performed parts'
 
