@@ -17,11 +17,11 @@ passed = []
 pipeline {
     agent none
     stages{
-    stage( 'stage' ) { steps { sleep (5); passed.add('name1') }  }  
-    stage( 'stage' ) { steps { sleep (5); passed.add('name2') }  } 
-    stage( 'stage' ) { steps { sleep (5); passed.add('name3') }  } 
-    stage( 'stage' ) { steps { sleep (5); passed.add('name4') }  } 
-    stage( 'stage' ) { steps { sleep (5); passed.add('name5') }  } 
+    stage( 'stage' ) { steps { sleep (5); script { passed.add('name1') } }  }  
+    stage( 'stage' ) { steps { sleep (5); script { passed.add('name2') } }  } 
+    stage( 'stage' ) { steps { sleep (5); script { passed.add('name3') } }  } 
+    stage( 'stage' ) { steps { sleep (5); script { passed.add('name4') } }  } 
+    stage( 'stage' ) { steps { sleep (5); script { passed.add('name5') } }  } 
     stage( 'ckpt' )  { steps { checkpoint 'performed parts' } }
     stage( 'stage' ) { 
         steps { 
