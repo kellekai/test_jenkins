@@ -52,21 +52,27 @@ pipeline {
                         }
             }
             }
+            stage( 'last' ) {
+                steps {
+                    def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
+                    checkpoint 'performed parts'
+                }
+            }
         }
-        def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
-        checkpoint 'performed parts'
-        if (origBuildNumber != env.BUILD_NUMBER) {
             stages {
                 stage( 'one' ) {
                     steps {
+        if (origBuildNumber != env.BUILD_NUMBER) {
                     sh '''
                         sleep 5
                         echo 'first part passes'
                     '''
                     }
                 }
+                }
                 stage( 'one' ) {
                     steps {
+        if (origBuildNumber != env.BUILD_NUMBER) {
                         part('two') {
                           // Example of a flaky build step:
                           //if (env.BUILD_NUMBER == '2') {
@@ -81,8 +87,10 @@ pipeline {
                         }
                     }
                 }
+                }
                 stage( 'one' ) {
                     steps {
+        if (origBuildNumber != env.BUILD_NUMBER) {
                         part('three') {
                     sh '''
                         sleep 5 
@@ -90,6 +98,7 @@ pipeline {
                     '''
                             }
                     }
+                }
                 }
             }
         }
