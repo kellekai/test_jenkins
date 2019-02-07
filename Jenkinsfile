@@ -25,6 +25,7 @@ def go() {
   //  }
   //}
   part('three') {echo 'third part passes'}
+  part('four') {echo 'third part passes'}
 }
 go()
 def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
