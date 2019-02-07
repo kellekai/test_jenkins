@@ -31,20 +31,25 @@ pipeline {
                     steps {
                 part('two') {
                   // Example of a flaky build step:
-                  if (env.BUILD_NUMBER == '2') {
-                    sh 'sleep 5'        
-                    echo 'second part passes'
-                  } else {
-                    echo env.BUILD_NUMBER
+                  //if (env.BUILD_NUMBER == '2') {
+                  //  sh 'sleep 5'        
+                  //  echo 'second part passes'
+                  //} else {
+                    //echo env.BUILD_NUMBER
                     sh 'sleep 5' 
                     error 'second part fails'
-                  }
+                  //}
                 }
             }
             }
             stage( 'one' ) {
                     steps {
-                part('three') {sh 'sleep 5' echo 'third part passes'}
+                part('three') {
+                    sh '''
+                        sleep 5 
+                        echo 'third part passes'
+                    '''
+                        }
             }
             }
         }
@@ -54,27 +59,36 @@ pipeline {
             stages {
                 stage( 'one' ) {
                     steps {
-                        part('one') {sh 'sleep 5' echo 'first part passes'}
+                    sh '''
+                        sleep 5
+                        echo 'first part passes'
+                    '''
                     }
                 }
                 stage( 'one' ) {
                     steps {
                         part('two') {
                           // Example of a flaky build step:
-                          if (env.BUILD_NUMBER == '2') {
-                            sh 'sleep 5'        
-                            echo 'second part passes'
-                          } else {
-                            echo env.BUILD_NUMBER
-                            sh 'sleep 5' 
-                            error 'second part fails'
-                          }
+                          //if (env.BUILD_NUMBER == '2') {
+                          //  sh 'sleep 5'        
+                          //  echo 'second part passes'
+                          //} else {
+                    sh '''
+                        sleep 5 
+                        echo 'third part passes'
+                    '''
+                          //}
                         }
                     }
                 }
                 stage( 'one' ) {
                     steps {
-                        part('three') {sh 'sleep 5' echo 'third part passes'}
+                        part('three') {
+                    sh '''
+                        sleep 5 
+                        echo 'third part passes'
+                    '''
+                            }
                     }
                 }
             }
