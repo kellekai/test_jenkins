@@ -25,7 +25,6 @@ def go() {
      sleep 10
       echo 'first part passes'
      '''
-     error 'second foo fails'
       }
   //part('two') {
   //  // Example of a flaky build step:
