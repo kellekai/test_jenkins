@@ -58,7 +58,6 @@ pipeline {
                     checkpoint 'performed parts'
                 }
             }
-        }
                 stage( 'one' ) {
                     steps {
         if (origBuildNumber != env.BUILD_NUMBER) {
@@ -99,5 +98,5 @@ pipeline {
                     }
                 }
                 }
-            }
+        }
 }
