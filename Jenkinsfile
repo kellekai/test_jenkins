@@ -19,17 +19,20 @@ pipeline {
     stages{
     stage( 'stage' ) { 
         steps { 
-            sleep (5)
-            passed.add('name1') 
+            script {
+                sleep (5)
+                passed.add('name1') 
+            }
         }  
     }  
     stage( 'ckpt' )  { steps { checkpoint 'performed parts' } }
     stage( 'stage' ) { 
-        steps { 
-        if( passed.contains('name1') )
-            echo 'it should work' 
+        steps {
+        script {
+            if( passed.contains('name1') )
+                echo 'it should work' 
             }  
-        }  
+        }
     }
 }
 
