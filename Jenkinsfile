@@ -59,7 +59,6 @@ pipeline {
                 }
             }
         }
-            stages {
                 stage( 'one' ) {
                     steps {
         if (origBuildNumber != env.BUILD_NUMBER) {
@@ -101,5 +100,4 @@ pipeline {
                 }
                 }
             }
-        }
 }
