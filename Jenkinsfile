@@ -1,4 +1,7 @@
+#!/bin/groovy
+
 passed = []
+
 def part(name, closure) {
   if (passed.contains(name)) {
     return
@@ -12,6 +15,7 @@ def part(name, closure) {
     currentBuild.result = 'FAILURE'
   }
 }
+
 def go() {
   part('one') {sh 'sleep 5' echo 'first part passes'}
   part('two') {
@@ -26,9 +30,13 @@ def go() {
   }
   part('three') {sh 'sleep 5 'echo 'third part passes'}
 }
-go()
-def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
-checkpoint 'performed parts'
-if (origBuildNumber != env.BUILD_NUMBER) {
-  go()
+
+pipeline {
+    agent none
+        go()
+        def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
+        checkpoint 'performed parts'
+        if (origBuildNumber != env.BUILD_NUMBER) {
+            go()
+        }
 }
