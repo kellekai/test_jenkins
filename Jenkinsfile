@@ -31,12 +31,9 @@ def go() {
   part('three') {sh 'sleep 5 'echo 'third part passes'}
 }
 
-pipeline {
-    agent none
-        go()
-        def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
-        checkpoint 'performed parts'
-        if (origBuildNumber != env.BUILD_NUMBER) {
-            go()
-        }
+go()
+def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
+checkpoint 'performed parts'
+if (origBuildNumber != env.BUILD_NUMBER) {
+    go()
 }
