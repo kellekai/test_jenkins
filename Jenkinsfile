@@ -3,16 +3,16 @@
 passed = []
 
 def part(name, closure) {
-  if (passed.contains(name)) {
-    return
-  }
-  stage name
-  try {
-    closure.call()
-    passed.add(name)
-  } catch (e) {
-    echo "===> part ${name} failed with ${e} <==="
-    currentBuild.result = 'FAILURE'
+  stage( name ) {
+    if (!passed.contains(name)) {
+      try {
+        closure.call()
+        passed.add(name)
+      } catch (e) {
+        echo "===> part ${name} failed with ${e} <==="
+        currentBuild.result = 'FAILURE'
+      }
+    }
   }
 }
 
@@ -35,11 +35,11 @@ pipeline {
     agent none
         stages {
             echo env.BUILD_NUMBER
+            go()
+            def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
+            checkpoint 'performed parts'
+            if (origBuildNumber != env.BUILD_NUMBER) {
                 go()
-                def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
-                checkpoint 'performed parts'
-                if (origBuildNumber != env.BUILD_NUMBER) {
-                    go()
-                }
+            }
         }
 }
