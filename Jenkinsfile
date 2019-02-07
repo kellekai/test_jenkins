@@ -1,43 +1,32 @@
-pipeline {
-  agent any
-  stages {
-    stage('BUILD') {
-      steps {
-        sh 'echo "success stage"'
-      }
-    }
-    stage('TESTS') {
-      steps {
-        catchError() {
-          sh 'TMPENV1="blabla" TMPENV2="blabla" exit 255'
-        }
-
-        catchError() {
-          sh 'TMPENV1="blabla" TMPENV2="blabla" sleep 2'
-        }
-
-        catchError() {
-          sh 'TMPENV1="blabla" TMPENV2="blabla" sleep 2'
-        }
-
-        catchError() {
-          sh 'TMPENV1="blabla" TMPENV2="blabla" exit 255'
-        }
-
-        catchError() {
-          sh 'TMPENV1="blabla" TMPENV2="blabla" sleep 2'
-        }
-
-        catchError() {
-          sh 'TMPENV1="blabla" TMPENV2="blabla" sleep 2'
-        }
-
-      }
-    }
-    stage('FINALIZE') {
-      steps {
-        sh 'echo "success_stage"'
-      }
+passed = []
+def part(name, closure) {
+  if (passed.contains(name)) {
+    return
+  }
+  stage name
+  try {
+    closure.call()
+    passed.add(name)
+  } catch (e) {
+    echo "===> part ${name} failed with ${e} <==="
+    currentBuild.result = 'FAILURE'
+  }
+}
+def go() {
+  part('one') {echo 'first part passes'}
+  part('two') {
+    // Example of a flaky build step:
+    if (env.BUILD_NUMBER == '2') {
+      echo 'second part passes'
+    } else {
+      error 'second part fails'
     }
   }
+  part('three') {echo 'third part passes'}
+}
+go()
+def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
+checkpoint 'performed parts'
+if (origBuildNumber != env.BUILD_NUMBER) {
+  go()
 }
