@@ -13,12 +13,17 @@ def part(name, closure) {
     //currentBuild.result = 'FAILURE'
   }
 }
+
+def foo() {
+    sh 'sleep 5'
+}
+
 def go() {
-  part('one')   { sleep (5) }
-  part('two')   { sleep (5) }
-  part('three') { sleep (5) }
-  part('four')  { sleep (5) }
-  part('five')  { sleep (5) }
+  part('one')   { foo() }
+  part('two')   { foo() }
+  part('three') { foo() }
+  part('four')  { foo() }
+  part('five')  { foo() }
   //part('two') {
   //   sh '''
   //   sleep 5
@@ -49,6 +54,6 @@ def go() {
 go()
 //def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
 //checkpoint 'performed parts'
-if (origBuildNumber != env.BUILD_NUMBER) {
-  part('foo') { echo 'success' }
-}
+//if (origBuildNumber != env.BUILD_NUMBER) {
+//  part('foo') { echo 'success' }
+//}
