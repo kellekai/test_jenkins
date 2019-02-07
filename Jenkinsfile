@@ -28,8 +28,8 @@ def go() {
   part('four') {echo 'third part passes'}
 }
 go()
-def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
-checkpoint 'performed parts'
+//def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
+//checkpoint 'performed parts'
 if (origBuildNumber != env.BUILD_NUMBER) {
   part('foo') { echo 'success' }
 }
