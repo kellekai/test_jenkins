@@ -18,6 +18,7 @@ pipeline {
     agent none
     stages{
         stage( 'stage1' ) { 
+            agent any
             steps { 
                 script {
                     sleep (5)
@@ -25,8 +26,14 @@ pipeline {
                 }
             }  
         }  
-        stage( 'ckpt' )  { steps { checkpoint 'performed parts' } }
+        stage( 'ckpt' )  { 
+            agent none
+            steps { 
+                checkpoint 'performed parts' 
+            } 
+        }
         stage( 'stage2' ) { 
+            agent any
             steps {
             script {
                 if( passed.contains('name1') )
