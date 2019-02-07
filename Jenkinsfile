@@ -14,11 +14,11 @@ def part(name, closure) {
   }
 }
 def go() {
-  part('one') { sh 'sleep 5' }
-  part('two') { sh 'sleep 5' }
-  part('three') { sh 'sleep 5' }
-  part('four') { sh 'sleep 5' }
-  part('five') { sh 'sleep 5' }
+  part('one')   { sleep (5) }
+  part('two')   { sleep (5) }
+  part('three') { sleep (5) }
+  part('four')  { sleep (5) }
+  part('five')  { sleep (5) }
   //part('two') {
   //   sh '''
   //   sleep 5
