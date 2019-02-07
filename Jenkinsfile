@@ -16,13 +16,13 @@ def part(name, closure) {
 def go() {
   part('one') {
      sh '''
-     sleep 10
+     sleep 5
      echo 'first part passes'
      '''
       }
   part('two') {
      sh '''
-     sleep 10
+     sleep 5
       echo 'first part passes'
      '''
       }
@@ -36,13 +36,13 @@ def go() {
   //}
   part('three') {
      sh '''
-     sleep 10
+     sleep 5
       echo 'third part passes'
      '''
       }
   part('four') {
      sh '''
-     sleep 10
+     sleep 5
       echo 'third part passes'
      '''
       }
