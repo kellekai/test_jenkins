@@ -9,14 +9,14 @@ def part(name, closure) {
     passed.add(name)
   } catch (e) {
     echo "===> part ${name} failed with ${e} <==="
-    currentBuild.result = 'FAILURE'
+    //currentBuild.result = 'FAILURE'
   }
 }
 def go() {
   part('one') {echo 'first part passes'}
   part('two') {
     // Example of a flaky build step:
-    if (env.BUILD_NUMBER == '23') {
+    if (env.BUILD_NUMBER == '25') {
       echo 'second part passes'
     } else {
       error 'second part fails'
