@@ -28,9 +28,10 @@ def go() {
       error 'second part fails'
     }
   }
-  part('three') {sh 'sleep 5 'echo 'third part passes'}
+  part('three') {sh 'sleep 5' echo 'third part passes'}
 }
 
+echo env.BUILD_NUMBER
 go()
 def origBuildNumber = env.BUILD_NUMBER // CJP-1620 workaround
 checkpoint 'performed parts'
