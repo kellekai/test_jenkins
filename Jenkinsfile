@@ -7,6 +7,7 @@ def part(name, closure) {
   try {
     closure.call()
     passed.add(name)
+    currentBuild.result = 'SUCCESS'
   } catch (e) {
     echo "===> part ${name} failed with ${e} <==="
     //currentBuild.result = 'FAILURE'
